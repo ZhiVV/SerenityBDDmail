@@ -1,6 +1,7 @@
 package com.github.zhivv.steps;
 
 import com.github.zhivv.pages.HomePage;
+import com.github.zhivv.pages.MainPage;
 import net.thucydides.core.annotations.Step;
 
 
@@ -9,10 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SenderSteps {
 
     private HomePage homePage;
+    private MainPage mainPage;
 
     @Step("Открывает в браузере начальную страницу Mail.ru")
     public void opens_home_page() {
-        homePage.openPage();
+        homePage.open();
     }
 
     @Step("Вводит логин")
@@ -25,6 +27,13 @@ public class SenderSteps {
     public void enter_password(String password) {
         homePage.enterPass(password);
         homePage.clickEnter();
+    }
+
+    @Step("Отправляет новое письмо")
+    public void create_letter() {
+        mainPage.clickNewLetter();
+        mainPage.sendEmail();
+     //   sentLetterPage.isOpened();
     }
 }
 //    @Step

@@ -23,10 +23,6 @@ public class HomePage extends BasePage{
     @FindBy(xpath = "//iframe[contains(@src, 'login')]")
     WebElementFacade iframeLogin;
 
-    public void openPage() {
-        this.open();
-    }
-
     public void enterLogin(String login){
         getDriver().switchTo().frame(iframeLogin);
         inputLogin.clear();
@@ -44,6 +40,7 @@ public class HomePage extends BasePage{
 
     public void clickEnter(){
         submitButton.click();
+        getDriver().switchTo().defaultContent();
     }
 
 }

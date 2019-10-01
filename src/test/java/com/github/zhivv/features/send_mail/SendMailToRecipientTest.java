@@ -21,12 +21,11 @@ public class SendMailToRecipientTest {
     public void send_email() throws Exception {
         // GIVEN
         mark.opens_home_page();
-        mark.enter_login("@mail.ru");
+        mark.enter_login("test@mail.ru");
         mark.enter_password("test");
 
         // WHEN
-//        ListingItem selectedItem = mark.selects_listing(2);
-//        mark.adds_current_listing_to_cart();
+        mark.create_letter();
 
         // THEN
 //        mark.should_see_item_in_cart(selectedItem);
