@@ -2,5 +2,5 @@
 target/
 out/
 *.iml
-# игнорировать все .txt файлы в каталоге data/   
-src/test/resources/data/*.txt
+# игнорировать все .csv файлы в каталоге data/   
+src/test/resources/data/*.csv

@@ -2,6 +2,8 @@ package com.github.zhivv.steps;
 
 import com.github.zhivv.pages.HomePage;
 import com.github.zhivv.pages.MainPage;
+import com.github.zhivv.pages.SentLetterPage;
+import com.github.zhivv.pages.SentPage;
 import net.thucydides.core.annotations.Step;
 
 
@@ -11,6 +13,8 @@ public class SenderSteps {
 
     private HomePage homePage;
     private MainPage mainPage;
+    private SentPage sentPage;
+    private SentLetterPage sentLetterPage;
 
     @Step("Открывает в браузере начальную страницу Mail.ru")
     public void opens_home_page() {
@@ -30,10 +34,20 @@ public class SenderSteps {
     }
 
     @Step("Отправляет новое письмо")
-    public void create_letter() {
+    public void create_letter(String recipientEmail) {
         mainPage.clickNewLetter();
-        mainPage.sendEmail();
-     //   sentLetterPage.isOpened();
+        mainPage.sendEmail(recipientEmail);
+    }
+
+    @Step("Проверяет что письмо отправлено")
+    public void should_see_the_letter_sent() {
+        sentLetterPage.checkMessage();
+    }
+
+    @Step("Проверяет что письмо есть в папке Отправленные")
+    public void should_see_the_letter_in_the_sent_folder() {
+        mainPage.openSentPage();
+        // assert
     }
 }
 //    @Step

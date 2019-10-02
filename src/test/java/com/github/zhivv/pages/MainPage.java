@@ -31,11 +31,12 @@ public class MainPage extends BasePage {
     newLetterButton.click();
   }
 
-  public void sendEmail() {
+  public void sendEmail(String recipientEmail) {
     fieldTo.clear();
-    fieldTo.sendKeys("test@mail.ru");
+    fieldTo.sendKeys(recipientEmail);
     fieldSubject.clear();
     fieldSubject.sendKeys("test letter");
+    //TODO: написать  кликалку по поп-ап "Вы уверены что отправляете пустое письмо, затем код с телом письма закомментировать
     getDriver().switchTo().frame(iframeEditor);
     fieldText.clear();
     fieldText.sendKeys("Hello, world!");
@@ -44,4 +45,11 @@ public class MainPage extends BasePage {
     getDriver().findElement(By.cssSelector("[name='Filedata']")).sendKeys(file.getAbsolutePath());
     getDriver().findElement(By.xpath("//div[@data-shortcut='ctrl+enter|command+enter']")).click();
   }
+
+  public void openSentPage() {
+  }
 }
+
+//data-shortcut="g,s"
+// <div class="message-sent__title">
+//<span class="message-sent__info">v.zhichkin &lt;v.zhichkin@ya.ru&gt;</span>
