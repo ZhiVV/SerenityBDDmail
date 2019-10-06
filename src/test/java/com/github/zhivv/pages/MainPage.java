@@ -1,9 +1,6 @@
 package com.github.zhivv.pages;
 
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.At;
-import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.annotations.WhenPageOpens;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,40 +10,42 @@ import java.io.File;
 public class MainPage extends BasePage {
 
   @FindBy(css = "[data-shortcut='n']")
-  WebElementFacade newLetterButton;
+  private WebElementFacade newLetterButton;
 
   @FindBy(xpath = "//textarea[@data-original-name='To']")
-  WebElement fieldTo;
+  private WebElement fieldTo;
 
   @FindBy(name = "Subject")
-  WebElement fieldSubject;
+  private WebElement fieldSubject;
 
   @FindBy(xpath = "//iframe[contains(@id, 'composeEditor_ifr')]")
-  WebElement iframeEditor;
+  private WebElement iframeEditor;
 
   @FindBy(id = "tinymce")
-  WebElement fieldText;
+  private WebElement fieldText;
+
+  @FindBy(css = "[data-shortcut='g,s']")
+  private WebElement  directorySent;
 
   public void clickNewLetter() {
     newLetterButton.click();
   }
 
-  public void sendEmail(String recipientEmail) {
-    fieldTo.clear();
-    fieldTo.sendKeys(recipientEmail);
-    fieldSubject.clear();
-    fieldSubject.sendKeys("test letter");
-    //TODO: написать  кликалку по поп-ап "Вы уверены что отправляете пустое письмо, затем код с телом письма закомментировать
-    getDriver().switchTo().frame(iframeEditor);
-    fieldText.clear();
-    fieldText.sendKeys("Hello, world!");
-    getDriver().switchTo().defaultContent();
-    File file = new File("src/test/resources/data/attach.png");
+  public void sendEmail(String recipientEmail, String emailSubject, String emailText, String attachmentFile) {
+    typeInto(fieldTo, recipientEmail);
+    typeInto(fieldSubject, emailSubject);
+    //раскомментировать если будет нужно вставлять текст письма
+/*  getDriver().switchTo().frame(iframeEditor);
+    typeInto(fieldText, emailText);
+    getDriver().switchTo().defaultContent();*/
+    File file = new File("src/test/resources/data/" + attachmentFile);
     getDriver().findElement(By.cssSelector("[name='Filedata']")).sendKeys(file.getAbsolutePath());
     getDriver().findElement(By.xpath("//div[@data-shortcut='ctrl+enter|command+enter']")).click();
+
   }
 
   public void openSentPage() {
+    directorySent.click();
   }
 }
 

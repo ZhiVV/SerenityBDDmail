@@ -2,19 +2,19 @@ package com.github.zhivv.steps;
 
 import com.github.zhivv.pages.HomePage;
 import com.github.zhivv.pages.MainPage;
-import com.github.zhivv.pages.SentLetterPage;
+import com.github.zhivv.pages.SentLettersPage;
 import com.github.zhivv.pages.SentPage;
 import net.thucydides.core.annotations.Step;
-
-
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.contentOf;
 
 public class SenderSteps {
 
     private HomePage homePage;
     private MainPage mainPage;
     private SentPage sentPage;
-    private SentLetterPage sentLetterPage;
+    private SentLettersPage sentLettersPage;
 
     @Step("Открывает в браузере начальную страницу Mail.ru")
     public void opens_home_page() {
@@ -34,107 +34,20 @@ public class SenderSteps {
     }
 
     @Step("Отправляет новое письмо")
-    public void create_letter(String recipientEmail) {
+    public void create_letter(String recipientEmail, String emailSubject, String emailText, String attachmentFile) {
         mainPage.clickNewLetter();
-        mainPage.sendEmail(recipientEmail);
+        mainPage.sendEmail(recipientEmail, emailSubject, emailText, attachmentFile);
     }
 
-    @Step("Проверяет что письмо отправлено")
-    public void should_see_the_letter_sent() {
-        sentLetterPage.checkMessage();
-    }
+//    @Step("Проверяет что письмо отправлено")
+//    public void should_see_the_letter_sent() {
+//        sentLettersPage.checkMessage();
+//    }
 
     @Step("Проверяет что письмо есть в папке Отправленные")
-    public void should_see_the_letter_in_the_sent_folder() {
+    public void should_see_the_letter_in_the_sent_folder(String recipientEmail, String emailSubject, String attachmentFile) {
         mainPage.openSentPage();
-        // assert
+        assertThat(sentLettersPage.checkFirstMessageAddress()).isEqualTo(recipientEmail);
+        assertThat(sentLettersPage.checkFirstMessageSubject()).contains(emailSubject);
     }
 }
-//    @Step
-//    public void searches_by_keyword(String keyword) {
-//        homePage.enterSearchTerms(keyword);
-//        homePage.search();
-//        homePage.dismissLocationMessage();
-//    }
-//
-//    @Step
-//    public void should_see_results_summary_containing(String keyword) {
-//        assertThat(searchResultsPage.getSearchHeader()).containsIgnoringCase(keyword);
-//    }
-//
-//    @Step
-//    public void searches_for_shop_called(String shopName) {
-//        homePage.searchForShopCalled(shopName);
-//    }
-//
-//    @Step
-//    public void should_see_shop_search_result_summary_of(String expectedMessage) {
-//        assertThat(searchResultsPage.getResultSummary()).isEqualToIgnoringCase(expectedMessage);
-//    }
-//
-//    @Step
-//    public ListingItem selects_listing(int articleNumber) {
-//        return searchResultsPage.selectListing(articleNumber);
-//    }
-//
-//    @Step
-//    public void should_see_product_details_for(ListingItem selectedListingItem) {
-//        ListingItem displayedListingItem = listingPage.getDisplayedListing();
-//
-//    }
-//
-//    @Step
-//    public void adds_current_listing_to_cart() {
-//        listingPage.selectOptionIfPresent();
-//        listingPage.addToCart();
-//    }
-//
-//    @Step
-//    public void should_see_item_in_cart(ListingItem selectedItem) {
-//        assertThat(cartPage.getOrderCostSummaries()
-//                .stream().anyMatch(order -> order.getName().equals(selectedItem.getName()))).isTrue();
-//    }
-//
-//    @Step
-//    public void should_see_total_including_shipping_for(ListingItem selectedItem) {
-//        OrderCostSummary orderCostSummary = cartPage.getOrderCostSummaryFor(selectedItem).get();
-//
-//        double itemTotal = orderCostSummary.getItemTotal();
-//        double shipping = orderCostSummary.getShipping();
-//
-//        assertThat(itemTotal).isEqualTo(selectedItem.getPrice());
-//        assertThat(shipping).isGreaterThan(0.0);
-//    }
-//
-//    @Step
-//    public void should_see_product_rating() {
-//        assertThat(listingPage.getRating()).isGreaterThan(0);
-//    }
-//
-//    @Step
-//    public void should_see_twitter_link() {
-//        listingPage.twitterIcon().shouldBeVisible();
-//    }
-//
-//    @Step
-//    public void should_see_tumblr_link() {
-//        listingPage.tumblrIcon().shouldBeVisible();
-//    }
-//
-//    @Step
-//    public void should_see_facebook_link() {
-//        listingPage.facebookIcon().shouldBeVisible();
-//    }
-//
-//
-//    @Step
-//    public void should_see_nonexistant_field() {
-//        assertThat(listingPage.clickImaginaryButton()).isFalse();
-//    }
-//
-//
-//    @Step
-//    public void filters_by_local_region() {
-//        searchResultsPage.filterByLocalRegion();
-//    }
-

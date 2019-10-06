@@ -1,5 +1,5 @@
 USER LOGIN;USER PASSWORD;RECIPIENT EMAIL;EMAIL SUBJECT;EMAIL TEXT;ATTACHMENT FILE
-testUser@mail.ru;testPass;test@ya.ru;test letter 1;Hello world!;attach.png
-testUser@mail.ru;testPass;test@ya.ru;test letter 2;Hello world!;attach.png
-testUser@mail.ru;testPass;test@ya.ru;test letter 3;Hello world!;attach.png
-testUser@mail.ru;testPass;test@ya.ru;test letter 4;Hello world!;attach.png
+testUser@mail.ru;testPass;test+1@ya.ru;test letter 1;Hello world!;attach.png
+testUser@mail.ru;testPass;test+2@ya.ru;test letter 2;Hello world!;attach.png
+testUser@mail.ru;testPass;test+3@ya.ru;test letter 3;Hello world!;attach.png
+testUser@mail.ru;testPass;test+4@ya.ru;test letter 4;Hello world!;attach.png

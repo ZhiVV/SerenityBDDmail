@@ -11,59 +11,62 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityParameterizedRunner.class)
-@UseTestDataFrom(value="src/test/resources/data/dataset.csv", separator=';')
+@UseTestDataFrom(value = "src/test/resources/data/dataset.csv", separator = ';')
 public class SendMailToRecipientTest {
 
-    private String userLogin;
-    private String userPassword;
-    private String recipientEmail;
-    private String emailSubject;
-    private String emailText;
-    private String attachmentFile;
+  private String userLogin;
+  private String userPassword;
+  //ToDo: сделать класс-модель письма, что бы было удобнее передавать параметры
+  private String recipientEmail;
+  private String emailSubject;
+  private String emailText;
+  private String attachmentFile;
 
-    public void setUserLogin(String userLogin){
-        this.userLogin = userLogin;
-    }
 
-    public void setUserPassword(String userPassword){
-        this.userPassword = userPassword;
-    }
+  @Managed(uniqueSession = true)
+  WebDriver driver;
 
-    @Managed(uniqueSession=true)
-    WebDriver driver;
+  @Steps
+  SenderSteps mark;
 
-    @Steps
-    SenderSteps mark;
+  @Test
+  public void send_email() throws Exception {
+    // GIVEN
+    mark.opens_home_page();
+    mark.enter_login(userLogin);
+    mark.enter_password(userPassword);
 
-    @Test
-    public void send_email() throws Exception {
-        // GIVEN
-        mark.opens_home_page();
-        mark.enter_login(userLogin);
-        mark.enter_password(userPassword);
+    // WHEN
+    mark.create_letter(recipientEmail, emailSubject, emailText, attachmentFile);
 
-        // WHEN
-        mark.create_letter(recipientEmail);
+    // THEN
+   // mark.should_see_the_letter_sent();
+    mark.should_see_the_letter_in_the_sent_folder(recipientEmail, emailSubject, attachmentFile);
+  }
 
-        // THEN
-        mark.should_see_the_letter_sent();
-        mark.should_see_the_letter_in_the_sent_folder();
-    }
 
-    public void setRecipientEmail(String recipientEmail) {
-        this.recipientEmail = recipientEmail;
-    }
+  public void setUserLogin(String userLogin) {
+    this.userLogin = userLogin;
+  }
 
-    public void setEmailSubject(String emailSubject) {
-        this.emailSubject = emailSubject;
-    }
+  public void setUserPassword(String userPassword) {
+    this.userPassword = userPassword;
+  }
 
-    public void setEmailText(String emailText) {
-        this.emailText = emailText;
-    }
+  public void setRecipientEmail(String recipientEmail) {
+    this.recipientEmail = recipientEmail;
+  }
 
-    public void setAttachmentFile(String attachmentFile) {
-        this.attachmentFile = attachmentFile;
-    }
+  public void setEmailSubject(String emailSubject) {
+    this.emailSubject = emailSubject;
+  }
+
+  public void setEmailText(String emailText) {
+    this.emailText = emailText;
+  }
+
+  public void setAttachmentFile(String attachmentFile) {
+    this.attachmentFile = attachmentFile;
+  }
 }
 
