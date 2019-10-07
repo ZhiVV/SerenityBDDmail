@@ -24,8 +24,8 @@ public class MainPage extends BasePage {
   @FindBy(id = "tinymce")
   private WebElement fieldText;
 
-  @FindBy(css = "[data-shortcut='g,s']")
-  private WebElement  directorySent;
+//  @FindBy(css = "[data-shortcut='g,s']")
+//  private WebElement directorySent;
 
   public void clickNewLetter() {
     newLetterButton.click();
@@ -41,14 +41,10 @@ public class MainPage extends BasePage {
     File file = new File("src/test/resources/data/" + attachmentFile);
     getDriver().findElement(By.cssSelector("[name='Filedata']")).sendKeys(file.getAbsolutePath());
     getDriver().findElement(By.xpath("//div[@data-shortcut='ctrl+enter|command+enter']")).click();
-
   }
 
   public void openSentPage() {
+    WebElement directorySent = getDriver().findElement(By.cssSelector("[data-shortcut='g,s']"));
     directorySent.click();
   }
 }
-
-//data-shortcut="g,s"
-// <div class="message-sent__title">
-//<span class="message-sent__info">v.zhichkin &lt;v.zhichkin@ya.ru&gt;</span>

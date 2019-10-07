@@ -4,7 +4,6 @@ import com.github.zhivv.steps.SenderSteps;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,10 +39,9 @@ public class SendMailToRecipientTest {
     mark.create_letter(recipientEmail, emailSubject, emailText, attachmentFile);
 
     // THEN
-   // mark.should_see_the_letter_sent();
+    mark.should_see_the_letter_sent();
     mark.should_see_the_letter_in_the_sent_folder(recipientEmail, emailSubject, attachmentFile);
   }
-
 
   public void setUserLogin(String userLogin) {
     this.userLogin = userLogin;

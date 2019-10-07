@@ -40,5 +40,4 @@ public class HomePage extends BasePage {
     submitButton.click();
     getDriver().switchTo().defaultContent();
   }
-
 }
